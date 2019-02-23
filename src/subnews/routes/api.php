@@ -17,29 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('SubsOrder', function() {
-    // If the Content-Type and Accept headers are set to 'application/json',
-    // this will return a JSON structure. This will be cleaned up later.
-    return SubsOrder::all();
-});
+Route::get('order', 'SubsOrderController@index'); 
+Route::get('order/{id}', 'SubsOrderController@show'); 
+Route::post('order', 'SubsOrderController@store'); 
+Route::put('order/{id}', 'SubsOrderController@update'); 
+Route::delete('order/{id}', 'SubsOrderController@delete');
 
-Route::get('SubsOrder/{id}', function($id) {
-    return SubsOrder::find($id);
-});
-
-Route::post('SubsOrder', function(Request $request) {
-    return SubsOrder::create($request->all);
-});
-
-Route::put('SubsOrder/{id}', function(Request $request, $id) {
-    $article = SubsOrder::findOrFail($id);
-    $article->update($request->all());
-
-    return $article;
-});
-
-Route::delete('SubsOrder/{id}', function($id) {
-    Article::find($id)->delete();
-
-    return 204;
-});
+Route::get('user', 'SubsUserController@index'); 
+Route::post('user/store', 'SubsUserController@store'); 
