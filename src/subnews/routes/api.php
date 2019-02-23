@@ -23,6 +23,10 @@ Route::post('order', 'SubsOrderController@store');
 Route::put('order/{id}', 'SubsOrderController@update'); 
 Route::delete('order/{id}', 'SubsOrderController@delete');
 
+Route::get('channel', 'SubsChannelController@index'); 
+Route::post('channel/store', 'SubsChannelController@store'); 
+Route::delete('channel/{channelid}', 'SubsChannelController@delete');
+
 Route::get('user', 'SubsUserController@index'); 
 Route::post('user/store', 'SubsUserController@store'); 
 Route::put('user/{userAccount}', 'SubsUserController@update'); 
