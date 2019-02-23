@@ -25,3 +25,5 @@ Route::delete('order/{id}', 'SubsOrderController@delete');
 
 Route::get('user', 'SubsUserController@index'); 
 Route::post('user/store', 'SubsUserController@store'); 
+Route::put('user/{userAccount}', 'SubsUserController@update'); 
+Route::delete('user/{userAccount}', 'SubsUserController@delete');

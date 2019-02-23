@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubsUser extends Model
 {
     public $timestamps = false;
+    protected $hidden = ['userPassword','userAccount'];
     
     public function subsOrder()
     {

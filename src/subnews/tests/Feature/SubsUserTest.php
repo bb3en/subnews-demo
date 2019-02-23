@@ -33,7 +33,30 @@ class SubsUserTest extends TestCase
     $response = $this->json('POST','/api/user/store',$data);
     //Assert it was successful
     $response->assertStatus(201);
-    //Delete data
-    SubsUser::where('userAccount','demo55688')->delete();
+
     }
+    
+    public function testUpdateJoinDatetime()
+    {
+    //User's data
+    $data = [
+        'userJoinDatetime' => '2019-02-23 12:00:00'
+    ];
+    //Send post request
+    $response = $this->json('Put','/api/user/demo55688',$data);
+    //Assert it was successful
+    $response->assertStatus(200);
+    //SubsUser::where('userAccount','demo55688')->delete();
+
+    }
+
+    public function testDeleteUser()
+    {
+
+    $response = $this->json('DELETE', '/api/user/demo55688');
+    //Assert it was successful
+    $response->assertStatus(204);
+
+    }
+    
 }

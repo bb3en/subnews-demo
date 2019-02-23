@@ -18,4 +18,21 @@ class SubsUserController extends Controller
 
         return response()->json($user, 201); 
     }
+    
+    public function update(Request $request, $account)
+    {
+        $user = SubsUser::where('userAccount', '=', $account)->firstOrFail();
+        //$order->update($request->all());
+        $user ->update(['userJoinDatetime' => $request->input('userJoinDatetime')]);
+        return $user;
+    }
+    
+    public function delete(Request $request, $account)
+    {
+        //$user = SubsUser::findOrFail($account);
+        //$user->delete();
+        SubsUser::where('userAccount',$account)->delete();
+        
+        return response()->json(null, 204); 
+    }
 }
