@@ -17,17 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('order', 'SubsOrderController@index'); 
-Route::get('order/{id}', 'SubsOrderController@show'); 
+Route::get('order', 'SubsOrderController@index');
+//Route::get('order/{id}', 'SubsOrderController@show'); 
 Route::post('order', 'SubsOrderController@store'); 
-Route::put('order/{id}', 'SubsOrderController@update'); 
-Route::delete('order/{id}', 'SubsOrderController@delete');
+Route::put('order/{userAccount}', 'SubsOrderController@update');
+Route::delete('order/{userAccount}', 'SubsOrderController@delete');
 
-Route::get('channel', 'SubsChannelController@index'); 
-Route::post('channel/store', 'SubsChannelController@store'); 
-Route::delete('channel/{channelid}', 'SubsChannelController@delete');
+Route::get('channel', 'SubsChannelController@index');
+Route::get('channel/{channelId}', 'SubsChannelController@show'); 
+Route::post('channel', 'SubsChannelController@store'); 
+Route::delete('channel/{channelName}', 'SubsChannelController@delete');
 
-Route::get('user', 'SubsUserController@index'); 
-Route::post('user/store', 'SubsUserController@store'); 
+Route::get('user', 'SubsUserController@index');
+Route::get('user/{userAccount}', 'SubsUserController@show');
+Route::post('user', 'SubsUserController@store'); 
 Route::put('user/{userAccount}', 'SubsUserController@update'); 
 Route::delete('user/{userAccount}', 'SubsUserController@delete');

@@ -12,6 +12,13 @@ class SubsUserController extends Controller
         return SubsUser::all();
     }
     
+    public function show($userAccount)
+    {
+        $user = SubsUser::where('userAccount', '=', $userAccount)->firstOrFail();
+        //$user = SubsUser::find(1);
+        return $user->subsOrders;
+    }
+    
     public function store(Request $request)
     {
         $user = SubsUser::create($request->all());

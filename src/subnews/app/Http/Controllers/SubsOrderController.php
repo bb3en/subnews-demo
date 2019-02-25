@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\SubsOrder;
+use App\SubsUser;
+use App\SubsChannel;
+
 use App\Http\Resources\SubsOrderResource;
     
 class SubsOrderController extends Controller
@@ -20,22 +24,85 @@ class SubsOrderController extends Controller
 
     public function store(Request $request)
     {
-        return SubsOrder::create($request->all());
+        $userAccount = $request->input('userAccount');
+        $channelName = $request->input('channelName');
+        $isExistUser =SubsUser::isExist($userAccount);
+        $isExistChannel = SubsChannel::isExist($channelName);
+        
+        $order = SubsOrder::join('subs_users', 'subs_users.id', '=', 'subs_orders.userId')
+        ->join('subs_channels', 'subs_channels.id', '=', 'subs_orders.channelId')
+        ->where('subs_users.userAccount', $userAccount)
+        ->where('subs_channels.channelName',  $channelName)
+        ->get();
+        
+        if($isExistUser && $isExistChannel) 
+        {
+            if(count($order)<1)
+            {
+                $channelId = SubsChannel::getId($channelName);
+                $userId = SubsUser::getId($userAccount);
+                $order = SubsOrder::create($request->all() + ['channelId' => $channelId,'userId'=> $userId]);
+                return response()->json($order, 201);
+            }
+            else
+            {
+                return response()->json($order, 202);
+            }
+        }
+        else
+        {
+            return response()->json($order, 202);
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $userAccount)
     {
-        $order = SubsOrder::findOrFail($id);
-        $order->update($request->all());
+        $channelName = $request->input('channelName');
+        $channelId = SubsChannel::getId($channelName);
+        $userId = SubsUser::getId($userAccount);
+        $isExistUser =SubsUser::isExist($userAccount);
+        $isExistChannel = SubsChannel::isExist($channelName);
+        
+        if($isExistUser && $isExistChannel)
+        {
 
-        return $order;
+            $order = SubsOrder::where('channelId', '=', $channelId)
+            ->where('userId', '=', $userId)
+            ->update(['orderEnable' => $request->input('orderEnable')]);
+            
+            return $order;
+        }
+        else
+        {
+            return response()->json(null, 202);
+        }
+
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $userAccount)
     {
-        $order = SubsOrder::findOrFail($id);
+
+        $channelName = $request->input('channelName');
+        $isExistChannel = SubsChannel::isExist($channelName);
+        $isExistUser = SubsUser::isExist($userAccount);
+        
+        if($isExistUser && $isExistChannel)
+        {
+            $channelId = SubsChannel::getId($channelName);
+            $userId = SubsUser::getId($userAccount);
+          
+            SubsOrder::where('channelId', '=',$channelId)
+            ->where('userId', '=',$userId)
+            ->delete();
+            return response()->json(null, 204);
+        }
+        else
+        {
+            return response()->json(null, 202);
+        }
+
         $order->delete();
 
-        return 204;
+        
     }
 }
