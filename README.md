@@ -15,7 +15,7 @@
 2) api/order POST
 > 新增訂閱，會檢查使用者與頻道存不存在及是否重複訂閱同頻道，必要參數:
 
-```json
+```javascript
 [
 'userAccount':'channelName',
 'channelName':'channelName',
@@ -26,7 +26,7 @@
 3) api/order/{userAccount} PUT
 > 更新訂閱狀態(取消、啟用訂閱)，會檢查使用者與頻道存不存在，必要參數:
 
-```json
+```javascript
 [
 'channelName':'channelName',
 'orderEnable':'0'
@@ -36,7 +36,7 @@
 4) api/order/{userAccount} DELETE
 > 刪除訂閱，必要參數:
 
-```json
+```javascript
 [
 'channelName':'channelName'
 ]
@@ -51,7 +51,7 @@
 7) api/channel POST
 > 新增頻道，頻道名稱不可重複，必要參數:
 
-```json
+```javascript
 [
 'channelName':'channelName',
 ]
@@ -69,9 +69,9 @@
 11) api/user POST
 > 新增使用者，帳號不可重複，必要參數:
 
-```json
+```javascript
 [
-'userName': userName',
+'userName':'userName',
 'userAccount':'userAccount',
 'userPassword':'userPassword',
 'userJoinDatetime':'2019-02-23 00:00:00'
@@ -81,7 +81,7 @@
 12) api/user/{userAccount} PUT
 > 更改使用者資料，只能更改使用者加入時間，必要參數:
 
-```json
+```javascript
 [
 'userJoinDatetime':'2019-02-23 12:00:00'
 ]
@@ -92,6 +92,7 @@
 > 刪除使用者
 
 ### DBSchema
-<img src="DBSchema.png" alt="DBSchema" height="150" width="150">
+
+<img src="DBSchema.png" alt="DBSchema" height="300" width="450">
 
 
