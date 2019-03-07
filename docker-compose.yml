@@ -1,0 +1,56 @@
+version: "3"
+services:
+  web:
+    image: hitalos/laravel:latest
+    ports:
+        - 80:80
+    volumes:
+        - ./src/subnews/:/var/www
+    links:
+        - mysql
+    environment:
+        DB_HOST: mysql
+        DB_DATABASE: c9
+        DB_USERNAME: demo
+        DB_PASSWORD: demo1234
+        DB_CONNECTION: mysql
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: "demo"
+      MYSQL_PASSWORD: "demo1234"
+      MYSQL_DATABASE: "c9"
+      MYSQL_ROOT_PASSWORD: "secret9527"
+
+    networks:
+      - net-mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      MYSQL_USER: "demo"
+      MYSQL_PASSWORD: "demo1234"
+      MYSQL_DATABASE: "c9"
+      MYSQL_ROOT_PASSWORD: "secret9527"
+      PMA_HOST: mysql
+    networks:
+      - net-mysql
+  redis:
+    image: redis
+    container_name: my_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+networks:
+  net-mysql:
