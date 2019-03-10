@@ -1,3 +1,7 @@
+### 環境With Docker
+
+> 在此目錄輸入docker-compose up，待所有Service(4個服務)都Done後服務即啟用。
+
 ### 需求
  1) user 的基本資料 (userId, name) Create/Update
  2) 新聞頻道 (channelId, name) Create/Update ，name is unique
