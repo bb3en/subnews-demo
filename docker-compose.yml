@@ -6,7 +6,7 @@ services:
     ports:
         - 80:80
     volumes:
-        - ./src/subnews/:/var/www
+        - ./src/subnews/:/var/www/
     links:
         - mysql
     environment:
@@ -16,10 +16,10 @@ services:
         DB_PASSWORD: demo1234
         DB_CONNECTION: mysql
     #command: php artisan migrate
-    command: sh -c '/var/www/boot.sh'
+    command: bash -c "php ./artisan migrate && php ./artisan serve --port=80 --host=0.0.0.0" 
     depends_on:
         mysql:
-            condition: service_healthy
+           condition: service_healthy
     networks:
       - net-mysql
 
@@ -38,7 +38,7 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
       retries: 10
-
+      interval: 10s
     networks:
       - net-mysql
 

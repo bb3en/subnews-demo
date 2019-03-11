@@ -1,8 +1,23 @@
-### 環境With Docker
+### 環境 With Docker
+1) 執行docker-compose up
 
-> 在此目錄輸入docker-compose up，待所有Service(4個服務)都Done後服務即啟用。
+```console
+docker-compose up
+```
 
-### 需求
+2) 進入 laravel 環境
+
+```console
+docker exec -it laravel bash
+```
+
+3) 執行 boot.sh
+
+```console
+sh boot.sh
+```
+
+### Demo需求
  1) user 的基本資料 (userId, name) Create/Update
  2) 新聞頻道 (channelId, name) Create/Update ，name is unique
  3) 每個 user 都可以調整訂閱的新聞 Create/List/Update/Delete
