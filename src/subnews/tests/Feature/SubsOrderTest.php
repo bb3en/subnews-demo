@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class SubsOrderTest extends TestCase
 {
 
-    public function testCreateChannel()
+    public function testCreateChannel(): void
     {
 
        $data = [
@@ -21,7 +21,7 @@ class SubsOrderTest extends TestCase
        $response->assertStatus(201);
        
     }
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
 
     $data = [
@@ -38,7 +38,7 @@ class SubsOrderTest extends TestCase
     }
 
 
-    public function testCreateOrder()
+    public function testCreateOrder(): void
     {
 
     $data = [
@@ -53,7 +53,8 @@ class SubsOrderTest extends TestCase
     $response->assertStatus(201);
 
     }
-    public function testUpdateOrderEnable()
+
+    public function testUpdateOrderEnable(): void
     {
     //User's data
     $data = [
@@ -67,7 +68,8 @@ class SubsOrderTest extends TestCase
     //SubsUser::where('userAccount','demo55688')->delete();
 
     }
-    public function testUpdateUserJoinDatetime()
+
+    public function testUpdateUserJoinDatetime(): void
     {
     //User's data
     $data = [
@@ -81,7 +83,7 @@ class SubsOrderTest extends TestCase
 
     }
     
-    public function testDeleteOrder()
+    public function testDeleteOrder(): void
     {
         $data = ['channelName' => 'demoChannelTest'];
         
@@ -90,14 +92,14 @@ class SubsOrderTest extends TestCase
         $response->assertStatus(204);
     }
     
-    public function testDeleteChannel()
+    public function testDeleteChannel(): void
     {
         $response = $this->json('DELETE', '/api/channel/demoChannelTest');
 
         $response->assertStatus(204);
     }
     
-    public function testDeleteUser()
+    public function testDeleteUser(): void
     {
 
     $response = $this->json('DELETE', '/api/user/demo55688');

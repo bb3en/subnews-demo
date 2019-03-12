@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -21,7 +21,7 @@ use ReflectionMethod;
 use Throwable;
 
 /**
- * A TestSuite is a composite of Tests. It runs a collection of test cases.
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 class TestSuite implements Test, SelfDescribing, IteratorAggregate
 {
@@ -108,6 +108,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * @param string $name
      *
      * @throws Exception
+     * @throws \ReflectionException
      */
     public static function createTest(ReflectionClass $theClass, $name): Test
     {
@@ -302,7 +303,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
             return true;
         }
 
-        $annotations = \PHPUnit\Util\Test::parseAnnotations($method->getDocComment());
+        $annotations = \PHPUnit\Util\Test::parseAnnotations((string) $method->getDocComment());
 
         return isset($annotations['test']);
     }
@@ -327,6 +328,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * @param string $name
      *
      * @throws Exception
+     * @throws \ReflectionException
      */
     public function __construct($theClass = '', $name = '')
     {
@@ -358,7 +360,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
         }
 
         if (!$theClass->isSubclassOf(TestCase::class)) {
-            $this->setName($theClass);
+            $this->setName((string) $theClass);
 
             return;
         }
@@ -439,6 +441,8 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * Adds a test to the suite.
      *
      * @param array $groups
+     *
+     * @throws \ReflectionException
      */
     public function addTest(Test $test, $groups = []): void
     {
@@ -474,6 +478,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * Adds the tests from the given class to the suite.
      *
      * @throws Exception
+     * @throws \ReflectionException
      */
     public function addTestSuite($testClass): void
     {
@@ -524,6 +529,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * leaving the current test run untouched.
      *
      * @throws Exception
+     * @throws \ReflectionException
      */
     public function addTestFile(string $filename): void
     {
@@ -603,6 +609,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
      * @param array|Iterator $fileNames
      *
      * @throws Exception
+     * @throws \ReflectionException
      */
     public function addTestFiles($fileNames): void
     {
@@ -673,7 +680,15 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
     /**
      * Runs the tests and collects their result in a TestResult.
      *
+     * @throws \PHPUnit\Framework\CodeCoverageException
+     * @throws \ReflectionException
+     * @throws \SebastianBergmann\CodeCoverage\CoveredCodeNotExecutedException
+     * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
+     * @throws \SebastianBergmann\CodeCoverage\MissingCoversAnnotationException
+     * @throws \SebastianBergmann\CodeCoverage\RuntimeException
+     * @throws \SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Warning
      */
     public function run(TestResult $result = null): TestResult
     {
@@ -889,6 +904,7 @@ class TestSuite implements Test, SelfDescribing, IteratorAggregate
 
     /**
      * @throws Exception
+     * @throws \ReflectionException
      */
     protected function addTestMethod(ReflectionClass $class, ReflectionMethod $method): void
     {

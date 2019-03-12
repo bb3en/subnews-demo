@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -241,7 +241,7 @@ EOF
 --TEST--
 Something to describe it
 --FILE--
-<?php
+<?php declare(strict_types=1);
 echo "Hello world!\n";
 ?>
 EOF
