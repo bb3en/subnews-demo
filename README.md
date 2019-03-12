@@ -11,10 +11,10 @@ docker-compose up
 docker exec -it laravel bash
 ```
 
-3) 執行 boot.sh
+3) 執行測試 
 
 ```console
-sh boot.sh
+phpunit
 ```
 
 ### Demo需求
