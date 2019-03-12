@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Subs;
 
 use Illuminate\Http\Request;
-use App\SubsUser;
+use App\Http\Controllers\Controller;
+use App\Subs\SubsUser;
 
-class SubsUserController extends Controller
+class UserController extends Controller
 {
     public function index()
     {

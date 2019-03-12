@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Subs;
 
 use Illuminate\Http\Request;
-use App\SubsChannel;
-use App\SubsOrder;
+use App\Http\Controllers\Controller;
+use App\Subs\SubsChannel;
+use App\Subs\SubsOrder;
 
-class SubsChannelController extends Controller
+class ChannelController extends Controller
 {
     public function index()
     {

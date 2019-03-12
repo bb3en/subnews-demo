@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Subs;
 
 use Illuminate\Http\Request;
-
-use App\SubsOrder;
-use App\SubsUser;
-use App\SubsChannel;
-
-use App\Http\Resources\SubsOrderResource;
+use App\Http\Controllers\Controller;
+use App\Subs\SubsOrder;
+use App\Subs\SubsUser;
+use App\Subs\SubsChannel;
     
-class SubsOrderController extends Controller
+class OrderController extends Controller
 {
     public function index()
     {
